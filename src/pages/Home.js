@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import LoadingAnimation from '../components/LoadingAnimation';
+import { lottoHistory as initialLottoData } from '../data/lottoData';
 import './Home.css';
 
 function Home() {
@@ -26,39 +27,12 @@ function Home() {
     };
   };
 
+  // fetchLatestLottoNumbers 함수를 로컬 데이터를 사용하도록 수정
   const fetchLatestLottoNumbers = useCallback(async () => {
     setIsLoading(true);
     try {
-      const latestRound = 1152;
-      const historyPromises = [];
-      
-      for(let i = 0; i < 100; i++) {
-        const roundNumber = latestRound - i;
-        historyPromises.push(
-          fetch(`/common.do?method=getLottoNumber&drwNo=${roundNumber}`)
-            .then(res => res.json())
-        );
-      }
-
-      const results = await Promise.all(historyPromises);
-      const history = results
-        .filter(data => data.returnValue === 'success')
-        .map(data => ({
-          drwNo: data.drwNo,
-          drwNoDate: data.drwNoDate,
-          numbers: [
-            data.drwtNo1,
-            data.drwtNo2,
-            data.drwtNo3,
-            data.drwtNo4,
-            data.drwtNo5,
-            data.drwtNo6
-          ],
-          bonusNumber: data.bnusNo
-        }));
-
-      setLottoHistory(history);
-      setNumberFrequency(calculateFrequency(history));
+      setLottoHistory(initialLottoData);
+      setNumberFrequency(calculateFrequency(initialLottoData));
     } catch (error) {
       console.error('로또 정보를 가져오는데 실패했습니다:', error);
     }
@@ -101,6 +75,33 @@ function Home() {
     setPredictedRareNumbers([...rareNumbers].sort((a, b) => a - b));
   }, [lottoHistory]);
 
+  const handleSaveData = useCallback(() => {
+    if (!lottoHistory.length) return;
+
+    // JSON 데이터 생성
+    const jsonData = JSON.stringify(lottoHistory, null, 2);
+    
+    // Blob 객체 생성
+    const blob = new Blob([jsonData], { type: 'application/json' });
+    
+    // 다운로드 링크 생성
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    
+    // 현재 날짜를 파일명에 포함
+    const date = new Date().toISOString().split('T')[0];
+    link.download = `lotto_history_${date}.json`;
+    
+    // 다운로드 실행
+    document.body.appendChild(link);
+    link.click();
+    
+    // cleanup
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  }, [lottoHistory]);
+
   useEffect(() => {
     fetchLatestLottoNumbers();
   }, [fetchLatestLottoNumbers]);
@@ -123,15 +124,23 @@ function Home() {
               최근 100회차의 당첨 데이터를 분석하여
               <br />두 가지 타입의 번호를 추천해드립니다
             </p>
+            <div className="button-group">
+              <button 
+                className="predict-button"
+                onClick={handlePrediction}
+              >
+                <span className="button-icon">🎯</span>
+                번호 추천받기
+              </button>
+              <button 
+                className="save-button"
+                onClick={handleSaveData}
+              >
+                <span className="button-icon">💾</span>
+                데이터 저장하기
+              </button>
+            </div>
           </div>
-          
-          <button 
-            className="predict-button"
-            onClick={handlePrediction}
-          >
-            <span className="button-icon">🎯</span>
-            번호 추천받기
-          </button>
           
           {predictedFrequentNumbers && (
             <div className="predictions-container">
