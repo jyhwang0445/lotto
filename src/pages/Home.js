@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import './Home.css';
+import { useState, useEffect, useCallback } from 'react';
 import LoadingAnimation from '../components/LoadingAnimation';
+import './Home.css';
 
 function Home() {
   const [lottoHistory, setLottoHistory] = useState([]);
@@ -26,46 +26,46 @@ function Home() {
     };
   };
 
-  const fetchLatestLottoNumbers = async () => {
+  const fetchLatestLottoNumbers = useCallback(async () => {
     setIsLoading(true);
     try {
-        const latestRound = 1152;
-        const historyPromises = [];
-        
-        for(let i = 0; i < 100; i++) {
-          const roundNumber = latestRound - i;
-          historyPromises.push(
-            fetch(`/common.do?method=getLottoNumber&drwNo=${roundNumber}`)
-              .then(res => res.json())
-          );
-        }
+      const latestRound = 1152;
+      const historyPromises = [];
+      
+      for(let i = 0; i < 100; i++) {
+        const roundNumber = latestRound - i;
+        historyPromises.push(
+          fetch(`/common.do?method=getLottoNumber&drwNo=${roundNumber}`)
+            .then(res => res.json())
+        );
+      }
 
-        const results = await Promise.all(historyPromises);
-        const history = results
-          .filter(data => data.returnValue === 'success')
-          .map(data => ({
-            drwNo: data.drwNo,
-            drwNoDate: data.drwNoDate,
-            numbers: [
-              data.drwtNo1,
-              data.drwtNo2,
-              data.drwtNo3,
-              data.drwtNo4,
-              data.drwtNo5,
-              data.drwtNo6
-            ],
-            bonusNumber: data.bnusNo
-          }));
+      const results = await Promise.all(historyPromises);
+      const history = results
+        .filter(data => data.returnValue === 'success')
+        .map(data => ({
+          drwNo: data.drwNo,
+          drwNoDate: data.drwNoDate,
+          numbers: [
+            data.drwtNo1,
+            data.drwtNo2,
+            data.drwtNo3,
+            data.drwtNo4,
+            data.drwtNo5,
+            data.drwtNo6
+          ],
+          bonusNumber: data.bnusNo
+        }));
 
-        setLottoHistory(history);
-        setNumberFrequency(calculateFrequency(history));
+      setLottoHistory(history);
+      setNumberFrequency(calculateFrequency(history));
     } catch (error) {
       console.error('로또 정보를 가져오는데 실패했습니다:', error);
     }
     setIsLoading(false);
-  };
+  }, []);
 
-  const handlePrediction = () => {
+  const handlePrediction = useCallback(() => {
     const allNumbers = lottoHistory.flatMap(lotto => [...lotto.numbers, lotto.bonusNumber]);
     
     const frequencyMap = new Map();
@@ -99,11 +99,11 @@ function Home() {
     
     setPredictedFrequentNumbers([...frequentNumbers].sort((a, b) => a - b));
     setPredictedRareNumbers([...rareNumbers].sort((a, b) => a - b));
-  };
+  }, [lottoHistory]);
 
   useEffect(() => {
     fetchLatestLottoNumbers();
-  }, []);
+  }, [fetchLatestLottoNumbers]);
 
   return (
     <div className="content-container">
@@ -191,14 +191,14 @@ function Home() {
           </div>
         </div>
       </div>
-      
+
       {isLoading ? (
         <LoadingAnimation />
       ) : (
         <div className="history-section">
           <h2>최근 당첨 번호</h2>
           <div className="history-grid">
-            {lottoHistory.map((lotto) => (
+            {lottoHistory.slice(0, 10).map((lotto) => (
               <div key={lotto.drwNo} className="history-card">
                 <div className="card-header">
                   <h4>{lotto.drwNo}회차</h4>
