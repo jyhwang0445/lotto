@@ -1,0 +1,173 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+nav {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+  background-color: #f0f0f0;
+  color: #007bff;
+}
+
+.content-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.feature-item {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  width: 200px;
+}
+
+.feature-item h3 {
+  color: #007bff;
+  margin-bottom: 0.5rem;
+}
+
+.prediction-box {
+  margin-top: 2rem;
+}
+
+.predict-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.predict-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.latest-lotto {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.latest-lotto h4 {
+  color: #2c3e50;
+  margin: 0 0 0.5rem 0;
+}
+
+.draw-date {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.lotto-numbers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.lotto-ball {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff;
+}
+
+.plus {
+  font-size: 1.5rem;
+  color: #666;
+}
+
+.bonus {
+  background-color: #dc3545;
+}
+
+.loading {
+  padding: 2rem;
+  color: #666;
+}
+
+.lotto-history {
+  max-height: 600px;
+  overflow-y: auto;
+  padding: 1rem;
+  margin: 2rem 0;
+}
+
+/* 스크롤바 스타일링 */
+.lotto-history::-webkit-scrollbar {
+  width: 8px;
+}
+
+.lotto-history::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.lotto-history::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.lotto-history::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

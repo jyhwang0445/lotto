@@ -1,0 +1,344 @@
+body {
+  background: #f0f7ff;
+}
+
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.hero-section {
+  text-align: center;
+  padding: 40px 0;
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  color: white;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.prediction-section {
+  margin-bottom: 40px;
+}
+
+.prediction-card {
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.prediction-header {
+  text-align: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.prediction-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.prediction-title h2 {
+  font-size: 1.8rem;
+  color: #1e40af;
+  font-weight: bold;
+}
+
+.prediction-badge {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.prediction-description {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.predict-button {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 auto;
+  min-width: 200px;
+}
+
+.predict-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.button-icon {
+  font-size: 1.4rem;
+}
+
+.predictions-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.predicted-numbers-container {
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.predicted-numbers-container h3 {
+  color: #1e40af;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.prediction-description {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.predicted-numbers {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.frequency-numbers {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.frequency-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lotto-ball {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.lotto-ball:hover {
+  transform: scale(1.1);
+}
+
+.number-1 { background: #fbbf24; }  /* 노랑 */
+.number-2 { background: #60a5fa; }  /* 파랑 */
+.number-3 { background: #f87171; }  /* 빨강 */
+.number-4 { background: #9ca3af; }  /* 회색 */
+.number-5 { background: #34d399; }  /* 초록 */
+
+.plus {
+  font-size: 1.2rem;
+  margin: 0 8px;
+  color: #64748b;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 40px;
+}
+
+.loading-spinner {
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    padding: 16px;
+  }
+  
+  .predictions-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .history-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .predicted-numbers,
+  .frequency-numbers {
+    gap: 8px;
+  }
+
+  .prediction-title {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .prediction-description {
+    font-size: 1rem;
+  }
+
+  .predict-button {
+    width: 100%;
+    padding: 14px 24px;
+  }
+
+  .predicted-numbers {
+    gap: 8px;
+  }
+
+  .lotto-ball {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+} 
+
+@media (max-width: 480px) {
+  .predicted-numbers {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+} 
+
+.history-section {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
+}
+
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.history-card {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.2s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.history-card:hover {
+  transform: translateY(-4px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.card-header h4 {
+  color: #1e40af;
+  font-size: 1.1rem;
+}
+
+.draw-date {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.numbers-container {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.plus {
+  font-size: 1.2rem;
+  margin: 0 8px;
+  color: #64748b;
+}
+
+.lotto-ball.bonus {
+  background: #ef4444;
+}
+
+@media (max-width: 768px) {
+  .history-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .numbers-container {
+    gap: 6px;
+  }
+
+  .plus {
+    margin: 0 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .numbers-container {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 4px;
+  }
+} 
