@@ -132,13 +132,6 @@ function Home() {
                 <span className="button-icon">🎯</span>
                 번호 추천받기
               </button>
-              <button 
-                className="save-button"
-                onClick={handleSaveData}
-              >
-                <span className="button-icon">💾</span>
-                데이터 저장하기
-              </button>
             </div>
           </div>
           
