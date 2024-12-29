@@ -75,33 +75,6 @@ function Home() {
     setPredictedRareNumbers([...rareNumbers].sort((a, b) => a - b));
   }, [lottoHistory]);
 
-  const handleSaveData = useCallback(() => {
-    if (!lottoHistory.length) return;
-
-    // JSON 데이터 생성
-    const jsonData = JSON.stringify(lottoHistory, null, 2);
-    
-    // Blob 객체 생성
-    const blob = new Blob([jsonData], { type: 'application/json' });
-    
-    // 다운로드 링크 생성
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    
-    // 현재 날짜를 파일명에 포함
-    const date = new Date().toISOString().split('T')[0];
-    link.download = `lotto_history_${date}.json`;
-    
-    // 다운로드 실행
-    document.body.appendChild(link);
-    link.click();
-    
-    // cleanup
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
-  }, [lottoHistory]);
-
   useEffect(() => {
     fetchLatestLottoNumbers();
   }, [fetchLatestLottoNumbers]);
